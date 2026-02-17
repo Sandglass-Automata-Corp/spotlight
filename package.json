@@ -1,0 +1,43 @@
+{
+  "name": "g-code-macro-b",
+  "displayName": "G Code",
+  "description": "Syntax highlighting for G Code Macro B files.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "gcode",
+    "g-code",
+    "cnc",
+    "macro b",
+    "fanuc"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "gcode",
+        "aliases": [
+          "G Code",
+          "gcode"
+        ],
+        "extensions": [
+          ".nc"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gcode",
+        "scopeName": "source.gcode",
+        "path": "./syntaxes/gcode.tmLanguage.json"
+      }
+    ]
+  }
+}

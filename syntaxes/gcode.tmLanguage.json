@@ -1,0 +1,307 @@
+{
+  "name": "G Code",
+  "scopeName": "source.gcode",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#subMacroDefinition"
+    },
+    {
+      "include": "#subProgramDefinition"
+    },
+    {
+      "include": "#subMacroCall"
+    },
+    {
+      "include": "#subProgramCall"
+    },
+    {
+      "include": "#gCodes"
+    },
+    {
+      "include": "#mCodes"
+    },
+    {
+      "include": "#variables"
+    },
+    {
+      "include": "#lineNumbers"
+    },
+    {
+      "include": "#addresses"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#conditionals"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#brackets"
+    },
+    {
+      "include": "#parentheses"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.semicolon.gcode",
+          "match": ";.*$"
+        },
+        {
+          "name": "comment.block.parentheses.gcode",
+          "begin": "\\(",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.gcode"
+            }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "subMacroDefinition": {
+      "patterns": [
+        {
+          "name": "meta.definition.sub-macro.gcode",
+          "match": "^(\\s*)(?:[Nn]\\d+\\s+)?([Oo])(9\\d{3,})\\b",
+          "captures": {
+            "2": {
+              "name": "keyword.control.program-prefix.gcode"
+            },
+            "3": {
+              "name": "entity.name.function.sub-macro.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "subProgramDefinition": {
+      "patterns": [
+        {
+          "name": "meta.definition.sub-program.gcode",
+          "match": "^(\\s*)(?:[Nn]\\d+\\s+)?([Oo])((?!9\\d{3,})\\d{1,8})\\b",
+          "captures": {
+            "2": {
+              "name": "keyword.control.program-prefix.gcode"
+            },
+            "3": {
+              "name": "entity.name.function.sub-program.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "subMacroCall": {
+      "patterns": [
+        {
+          "name": "meta.call.sub-macro.gcode",
+          "match": "\\b([Gg](?:65|66|66\\.1))\\b\\s*([Pp])(\\d+)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.gcode"
+            },
+            "2": {
+              "name": "keyword.other.address.p.gcode"
+            },
+            "3": {
+              "name": "support.function.call.sub-macro.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "subProgramCall": {
+      "patterns": [
+        {
+          "name": "meta.call.sub-program.gcode",
+          "match": "\\b([Mm]98)\\b\\s*([Pp])(\\d+)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.mcode"
+            },
+            "2": {
+              "name": "keyword.other.address.p.gcode"
+            },
+            "3": {
+              "name": "support.function.call.sub-program.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "gCodes": {
+      "patterns": [
+        {
+          "name": "keyword.control.gcode",
+          "match": "\\b([Gg])(\\d+(?:\\.\\d+)?)\\b",
+          "captures": {
+            "1": {
+              "name": "storage.type.gcode-prefix.gcode"
+            },
+            "2": {
+              "name": "constant.numeric.gcode-number.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "mCodes": {
+      "patterns": [
+        {
+          "name": "keyword.control.mcode",
+          "match": "\\b([Mm])(\\d+)\\b",
+          "captures": {
+            "1": {
+              "name": "storage.type.mcode-prefix.gcode"
+            },
+            "2": {
+              "name": "constant.numeric.mcode-number.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.named.gcode",
+          "match": "(#)<([^>\\r\\n]+)>",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.variable.gcode"
+            },
+            "2": {
+              "name": "variable.other.named.identifier.gcode"
+            }
+          }
+        },
+        {
+          "name": "variable.other.expression.gcode",
+          "match": "(#)\\[([^\\]\\r\\n]+)\\]",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.variable.gcode"
+            },
+            "2": {
+              "name": "meta.expression.variable-index.gcode"
+            }
+          }
+        },
+        {
+          "name": "variable.other.numeric.gcode",
+          "match": "(#)(\\d+)",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.variable.gcode"
+            },
+            "2": {
+              "name": "variable.other.numeric.identifier.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "lineNumbers": {
+      "patterns": [
+        {
+          "name": "entity.name.label.sequence-number.gcode",
+          "match": "^\\s*([Nn]\\d+)\\b",
+          "captures": {
+            "1": {
+              "name": "entity.name.label.sequence-number.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "addresses": {
+      "patterns": [
+        {
+          "name": "meta.address-word.gcode",
+          "match": "\\b([A-Za-z])(\\-?\\d+(?:\\.\\d+)?)\\b",
+          "captures": {
+            "1": {
+              "name": "variable.parameter.address.gcode"
+            },
+            "2": {
+              "name": "constant.numeric.address-value.gcode"
+            }
+          }
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.gcode",
+          "match": "(?<![A-Za-z#])\\-?\\d+(?:\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "conditionals": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.gcode",
+          "match": "(?i:\\b(?:IF|THEN|ELSE|GOTO|ENDIF)\\b)"
+        },
+        {
+          "name": "keyword.control.loop.gcode",
+          "match": "(?i:\\b(?:WHILE|DO\\d*|END\\d*)\\b)"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.gcode",
+          "match": "="
+        },
+        {
+          "name": "keyword.operator.arithmetic.gcode",
+          "match": "[+\\-*/]"
+        },
+        {
+          "name": "keyword.operator.logical.gcode",
+          "match": "\\b(?:EQ|NE|GT|GE|LT|LE|AND|OR|XOR)\\b"
+        }
+      ]
+    },
+    "brackets": {
+      "patterns": [
+        {
+          "name": "punctuation.section.brackets.begin.gcode",
+          "match": "\\["
+        },
+        {
+          "name": "punctuation.section.brackets.end.gcode",
+          "match": "\\]"
+        }
+      ]
+    },
+    "parentheses": {
+      "patterns": [
+        {
+          "name": "punctuation.section.parentheses.begin.gcode",
+          "match": "\\("
+        },
+        {
+          "name": "punctuation.section.parentheses.end.gcode",
+          "match": "\\)"
+        }
+      ]
+    }
+  }
+}
