@@ -33,7 +33,7 @@ npm install
 ```
 
 3. Press `F5` to launch the Extension Development Host.
-4. Open `/Users/chris/devel/spotlight/macro-b-test.nc`.
+4. Open `./macro-b-test.nc`.
 5. Confirm language mode is `G Code`.
 
 ### Option B: Build and install VSIX (recommended if `F5` is unreliable)
@@ -41,14 +41,14 @@ npm install
 1. Build:
 
 ```bash
-cd /Users/chris/devel/spotlight
+cd <project-root>
 npx @vscode/vsce package
 ```
 
 2. Install/reinstall:
 
 ```bash
-code --install-extension /Users/chris/devel/spotlight/g-code-macro-b-0.0.1.vsix --force
+code --install-extension ./g-code-macro-b-0.0.1.vsix --force
 ```
 
 3. Reload VS Code.
@@ -72,14 +72,14 @@ code --install-extension /Users/chris/devel/spotlight/g-code-macro-b-0.0.1.vsix 
 When you change grammar/theme/manifest files, rebuild and reinstall the VSIX:
 
 ```bash
-cd /Users/chris/devel/spotlight
+cd <project-root>
 npx @vscode/vsce package
-code --install-extension /Users/chris/devel/spotlight/g-code-macro-b-0.0.1.vsix --force
+code --install-extension ./g-code-macro-b-0.0.1.vsix --force
 ```
 
 ## Quick validation checklist
 
-Use `/Users/chris/devel/spotlight/macro-b-test.nc` and verify:
+Use `./macro-b-test.nc` and verify:
 
 - `G` and `M` tokens are different colors
 - `N` tokens have their own color
